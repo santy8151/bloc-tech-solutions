@@ -5,7 +5,7 @@ import {
   Mail, MessageSquareText, Send, Headset, Lock, AppWindow,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
-import asesor from "@/assets/asesor.jpg";
+import asesorAsset from "@/assets/asesor.jpg.asset.json";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { solutions } from "@/lib/solutions";
@@ -22,7 +22,14 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const isps = ["Movistar", "Tigo", "Claro", "ETB", "WOM", "EPM"];
+const isps: { name: string; logo: string }[] = [
+  { name: "Movistar", logo: "https://logo.clearbit.com/movistar.co" },
+  { name: "Tigo", logo: "https://logo.clearbit.com/tigo.com.co" },
+  { name: "Claro", logo: "https://logo.clearbit.com/claro.com.co" },
+  { name: "ETB", logo: "https://logo.clearbit.com/etb.com.co" },
+  { name: "WOM", logo: "https://logo.clearbit.com/wom.co" },
+  { name: "EPM", logo: "https://logo.clearbit.com/epm.com.co" },
+];
 
 function Index() {
   return (
@@ -232,7 +239,7 @@ function Advisor() {
           <div className="relative">
             <div className="absolute -inset-4 rounded-2xl opacity-30 blur-2xl" style={{ background: "var(--gradient-accent)" }} />
             <div className="relative rounded-2xl overflow-hidden border border-border" style={{ boxShadow: "var(--shadow-card)" }}>
-              <img src={asesor} alt="Juan Pablo Suárez Rodríguez" className="w-full h-[520px] object-cover" />
+              <img src={asesorAsset.url} alt="Juan Pablo Suárez Rodríguez" className="w-full h-[520px] object-cover object-top" />
             </div>
           </div>
           <div>
@@ -297,12 +304,16 @@ function InstallForm() {
         </div>
 
         {/* ISP carousel */}
-        <div className="relative overflow-hidden mb-12 py-6 border-y border-border">
-          <div className="flex gap-12 animate-[scroll_25s_linear_infinite] whitespace-nowrap">
+        <div className="relative overflow-hidden mb-12 py-8 border-y border-border bg-white/95">
+          <div className="flex gap-16 items-center animate-[scroll_25s_linear_infinite] whitespace-nowrap">
             {[...isps, ...isps, ...isps].map((isp, i) => (
-              <div key={i} className="text-2xl md:text-3xl font-extrabold text-muted-foreground hover:text-primary transition-colors tracking-wide">
-                {isp}
-              </div>
+              <img
+                key={i}
+                src={isp.logo}
+                alt={isp.name}
+                loading="lazy"
+                className="h-12 md:h-14 w-auto object-contain shrink-0 opacity-90 hover:opacity-100 transition"
+              />
             ))}
           </div>
         </div>
@@ -344,7 +355,7 @@ function InstallForm() {
                       onChange={(e) => setForm({ ...form, provider: e.target.value })}
                       className="w-full h-11 px-3 rounded-md bg-input border border-border focus:border-primary focus:outline-none transition"
                     >
-                      {isps.map((p) => <option key={p}>{p}</option>)}
+                      {isps.map((p) => <option key={p.name}>{p.name}</option>)}
                     </select>
                   </div>
                   <div>
