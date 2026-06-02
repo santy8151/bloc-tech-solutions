@@ -1,29 +1,288 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import {
+  Network, Shield, Home, Phone, Radio, Wrench,
+  Briefcase, GraduationCap, Building2, ArrowRight, CheckCircle2,
+  Mail, MessageSquareText, Send,
+} from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
+import asesor from "@/assets/asesor.jpg";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Bloque Tech — Bloque Soluciones en Telecomunicaciones y Ciberseguridad" },
+      { name: "description", content: "Conectamos empresas con proveedores y técnicos expertos en telecomunicaciones, ciberseguridad, CCTV y periféricos. Suscripciones e instalaciones a la medida." },
+      { property: "og:title", content: "Bloque Tech — Bloque Soluciones" },
+      { property: "og:description", content: "Un solo bloque, todas las soluciones tecnológicas que tu empresa necesita." },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const services = [
+  { icon: Network, title: "Conectividad Empresarial", desc: "Redes rápidas y seguras: WiFi, cableado e internet dedicado." },
+  { icon: Shield, title: "Seguridad Electrónica", desc: "Protección integral con CCTV, alarmas y accesos inteligentes." },
+  { icon: Home, title: "Automatización y Domótica", desc: "Convierte tu hogar u oficina en un espacio 100% inteligente." },
+  { icon: Phone, title: "Telefonía IP", desc: "Telefonía IP avanzada: extensiones, movilidad y ahorro en costos." },
+  { icon: Radio, title: "Proyectos Eléctricos", desc: "Infraestructura eléctrica segura, eficiente y lista para tu operación." },
+  { icon: Wrench, title: "Soporte TI", desc: "Soporte TI confiable para mantener tus sistemas siempre disponibles." },
+];
+
+const isps = ["Movistar", "Tigo", "Claro", "ETB", "WOM", "EPM"];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <SiteHeader />
+      <main className="flex-1">
+        <Hero />
+        <Services />
+        <Advisor />
+        <InstallForm />
+        <Contact />
+      </main>
+      <SiteFooter />
     </div>
   );
+}
+
+function Hero() {
+  return (
+    <section className="relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-30"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      <div className="absolute inset-0" style={{ background: "var(--gradient-hero)", opacity: 0.85 }} />
+      <div className="relative container mx-auto px-6 py-28 md:py-40 max-w-5xl text-center">
+        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-semibold tracking-widest uppercase mb-6">
+          Bloque Soluciones
+        </span>
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05]">
+          Un <span className="text-primary">bloque</span>, todas las{" "}
+          <span className="text-primary">soluciones</span> de tu empresa.
+        </h1>
+        <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          Conectamos empresas con los mejores proveedores y técnicos en telecomunicaciones,
+          ciberseguridad, CCTV, impresoras y más. Suscripciones e instalaciones a tu medida.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <a href="#contacto" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold text-primary-foreground shadow-[var(--shadow-glow)] hover:opacity-90 transition" style={{ background: "var(--gradient-accent)" }}>
+            Solicitar asesoría <ArrowRight className="h-4 w-4" />
+          </a>
+          <Link to="/tienda" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold border border-border hover:border-primary hover:text-primary transition">
+            Ver tienda
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Services() {
+  return (
+    <section id="servicios" className="py-24 relative">
+      <div className="container mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">Servicios</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+            Soluciones integrales para tu negocio
+          </h2>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((s) => (
+            <div
+              key={s.title}
+              className="group rounded-xl bg-card border border-border p-8 hover:border-primary/50 transition-all duration-300 hover:-translate-y-1"
+              style={{ boxShadow: "var(--shadow-card)" }}
+            >
+              <div className="inline-flex items-center justify-center h-14 w-14 rounded-lg bg-primary/10 text-primary mb-5 group-hover:scale-110 transition-transform">
+                <s.icon className="h-7 w-7" />
+              </div>
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-2">{s.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Advisor() {
+  return (
+    <section id="asesor" className="py-24 relative bg-card/30">
+      <div className="container mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-2xl opacity-30 blur-2xl" style={{ background: "var(--gradient-accent)" }} />
+            <div className="relative rounded-2xl overflow-hidden border border-border" style={{ boxShadow: "var(--shadow-card)" }}>
+              <img src={asesor} alt="Juan Pablo Suárez Rodríguez" className="w-full h-[520px] object-cover" />
+            </div>
+          </div>
+          <div>
+            <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">Tu asesor comercial</p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+              Juan Pablo<br /><span className="text-primary">Suárez Rodríguez</span>
+            </h2>
+            <p className="mt-5 text-muted-foreground leading-relaxed">
+              Técnico en telecomunicaciones y logística industrial, actualmente estudiando
+              Tecnología en Gestión Industrial en la <strong className="text-foreground">CUN</strong>.
+              Con experiencia sólida atendiendo a clientes corporativos y residenciales.
+            </p>
+            <div className="mt-6 space-y-3">
+              {[
+                { icon: GraduationCap, label: "Técnico en Telecomunicaciones · Logística Industrial" },
+                { icon: Building2, label: "DIS Soluciones · Emtelco · Luval Comunicaciones" },
+                { icon: Briefcase, label: "Asesor comercial de Bloque Tech" },
+              ].map((it) => (
+                <div key={it.label} className="flex items-start gap-3 p-3 rounded-lg bg-secondary/40 border border-border">
+                  <it.icon className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">{it.label}</span>
+                </div>
+              ))}
+            </div>
+            <a href="#contacto" className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-primary-foreground shadow-[var(--shadow-glow)] hover:opacity-90 transition" style={{ background: "var(--gradient-accent)" }}>
+              Hablar con Juan Pablo <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InstallForm() {
+  const [form, setForm] = useState({
+    email: "",
+    phone: "",
+    provider: "Movistar",
+    type: "Hogar",
+  });
+  const [sent, setSent] = useState(false);
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const msg = `Hola, soy ${form.email}. Quisiera saber en qué pueden ayudarme con planes de ${form.provider} para ${form.type}.`;
+    // WhatsApp deep link with predefined message
+    const wa = `https://wa.me/${form.phone.replace(/\D/g, "")}?text=${encodeURIComponent(msg)}`;
+    const mailto = `mailto:${form.email}?subject=${encodeURIComponent(`Planes ${form.provider} ${form.type} — Bloque Tech`)}&body=${encodeURIComponent(`Hola, te enviamos los planes disponibles de ${form.provider} para ${form.type}. Un asesor de Bloque Tech te contactará pronto.`)}`;
+    window.open(wa, "_blank");
+    window.open(mailto, "_blank");
+    setSent(true);
+  };
+
+  return (
+    <section id="contacto" className="py-24">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="text-center mb-12">
+          <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">Instalaciones</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Solicita tu instalación de internet</h2>
+          <p className="mt-4 text-muted-foreground">Trabajamos con los mejores proveedores de Medellín y Colombia.</p>
+        </div>
+
+        {/* ISP carousel */}
+        <div className="relative overflow-hidden mb-12 py-6 border-y border-border">
+          <div className="flex gap-12 animate-[scroll_25s_linear_infinite] whitespace-nowrap">
+            {[...isps, ...isps, ...isps].map((isp, i) => (
+              <div key={i} className="text-2xl md:text-3xl font-extrabold text-muted-foreground hover:text-primary transition-colors tracking-wide">
+                {isp}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div className="rounded-2xl bg-card border border-border p-8" style={{ boxShadow: "var(--shadow-card)" }}>
+            <h3 className="text-2xl font-bold mb-2">Te ayudamos a elegir tu plan</h3>
+            <p className="text-sm text-muted-foreground mb-6">Recibe los planes en tu correo y un mensaje directo en WhatsApp.</p>
+            {sent ? (
+              <div className="p-6 rounded-lg bg-primary/10 border border-primary/30 flex items-center gap-3">
+                <CheckCircle2 className="h-6 w-6 text-primary" />
+                <span>Solicitud enviada. Te contactaremos pronto.</span>
+              </div>
+            ) : (
+              <form onSubmit={submit} className="space-y-4">
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2 mb-2"><Mail className="h-4 w-4" /> Correo electrónico</label>
+                  <input
+                    required type="email" value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    placeholder="tu@correo.com"
+                    className="w-full h-11 px-4 rounded-md bg-input border border-border focus:border-primary focus:outline-none transition"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2 mb-2"><MessageSquareText className="h-4 w-4" /> Número WhatsApp</label>
+                  <input
+                    required type="tel" value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    placeholder="+57 300 000 0000"
+                    className="w-full h-11 px-4 rounded-md bg-input border border-border focus:border-primary focus:outline-none transition"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 block">Proveedor</label>
+                    <select
+                      value={form.provider}
+                      onChange={(e) => setForm({ ...form, provider: e.target.value })}
+                      className="w-full h-11 px-3 rounded-md bg-input border border-border focus:border-primary focus:outline-none transition"
+                    >
+                      {isps.map((p) => <option key={p}>{p}</option>)}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 block">Tipo</label>
+                    <select
+                      value={form.type}
+                      onChange={(e) => setForm({ ...form, type: e.target.value })}
+                      className="w-full h-11 px-3 rounded-md bg-input border border-border focus:border-primary focus:outline-none transition"
+                    >
+                      <option>Hogar</option>
+                      <option>Empresa</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="submit" className="w-full inline-flex items-center justify-center gap-2 h-12 rounded-md font-semibold text-primary-foreground shadow-[var(--shadow-glow)] hover:opacity-90 transition" style={{ background: "var(--gradient-accent)" }}>
+                  Enviar solicitud <Send className="h-4 w-4" />
+                </button>
+              </form>
+            )}
+          </div>
+
+          <div className="space-y-6">
+            <div className="rounded-2xl bg-card border border-border p-8">
+              <h3 className="text-xl font-bold mb-3">¿Por qué con nosotros?</h3>
+              <ul className="space-y-3 text-sm text-muted-foreground">
+                {[
+                  "Comparativa imparcial entre proveedores",
+                  "Instalación realizada por técnicos certificados",
+                  "Atención antes, durante y después del servicio",
+                  "Planes para hogar y empresas en toda Medellín",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-2"><CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" /> {t}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl p-8 text-primary-foreground" style={{ background: "var(--gradient-accent)" }}>
+              <h3 className="text-xl font-bold mb-2">¿Necesitas equipos?</h3>
+              <p className="text-sm opacity-90 mb-4">Compra cámaras, routers, switches, impresoras y más en nuestra tienda conectada con Amazon.</p>
+              <Link to="/tienda" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md font-semibold bg-background text-foreground hover:opacity-90 transition">
+                Ir a la tienda <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return null;
 }
