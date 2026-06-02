@@ -44,16 +44,22 @@ export function SiteFooter() {
           {/* Partners */}
           <div className="flex flex-col gap-3">
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Partners</p>
-            {[
-              "Microsoft Partner",
-              "Kaspersky Registered",
-              "Adobe Reseller",
-              "IDrive Cloud Backup",
-            ].map((p) => (
-              <div key={p} className="rounded-lg bg-background/60 border border-border px-4 py-3 text-sm font-semibold backdrop-blur">
-                {p}
-              </div>
-            ))}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
+                { name: "Kaspersky", logo: "https://logo.clearbit.com/kaspersky.com" },
+                { name: "Adobe", logo: "https://logo.clearbit.com/adobe.com" },
+                { name: "IDrive", logo: "https://logo.clearbit.com/idrive.com" },
+              ].map((p) => (
+                <div
+                  key={p.name}
+                  className="rounded-lg bg-white/95 border border-border h-16 flex items-center justify-center p-2 backdrop-blur"
+                  title={p.name}
+                >
+                  <img src={p.logo} alt={p.name} loading="lazy" className="max-h-10 w-auto object-contain" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className="border-t border-primary/20 py-5 text-center text-xs text-muted-foreground">
