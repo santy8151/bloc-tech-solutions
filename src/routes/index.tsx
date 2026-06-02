@@ -1,15 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  Network, Shield, Home, Phone, Radio, Wrench,
   Briefcase, GraduationCap, Building2, ArrowRight, CheckCircle2,
-  Mail, MessageSquareText, Send,
+  Mail, MessageSquareText, Send, Headset, Lock, AppWindow,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import asesor from "@/assets/asesor.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { solutions } from "@/lib/solutions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,15 +22,6 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const services = [
-  { icon: Network, title: "Conectividad Empresarial", desc: "Redes rápidas y seguras: WiFi, cableado e internet dedicado." },
-  { icon: Shield, title: "Seguridad Electrónica", desc: "Protección integral con CCTV, alarmas y accesos inteligentes." },
-  { icon: Home, title: "Automatización y Domótica", desc: "Convierte tu hogar u oficina en un espacio 100% inteligente." },
-  { icon: Phone, title: "Telefonía IP", desc: "Telefonía IP avanzada: extensiones, movilidad y ahorro en costos." },
-  { icon: Radio, title: "Proyectos Eléctricos", desc: "Infraestructura eléctrica segura, eficiente y lista para tu operación." },
-  { icon: Wrench, title: "Soporte TI", desc: "Soporte TI confiable para mantener tus sistemas siempre disponibles." },
-];
-
 const isps = ["Movistar", "Tigo", "Claro", "ETB", "WOM", "EPM"];
 
 function Index() {
@@ -41,6 +31,8 @@ function Index() {
       <main className="flex-1">
         <Hero />
         <Services />
+        <Subscriptions />
+        <RemoteSupport />
         <Advisor />
         <InstallForm />
         <Contact />
