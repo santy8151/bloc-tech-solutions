@@ -38,7 +38,9 @@ export const Route = createFileRoute("/soluciones/$slug")({
 });
 
 function SolucionDetail() {
-  const { sol } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const sol = getSolution(slug);
+  if (!sol) return null;
   const others = solutions.filter((s) => s.slug !== sol.slug).slice(0, 3);
 
   return (
