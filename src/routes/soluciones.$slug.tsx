@@ -2,10 +2,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, ArrowLeft } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { getSolution, solutions } from "@/lib/solutions";
+import { getSolution, solutions, type Solution } from "@/lib/solutions";
 
 export const Route = createFileRoute("/soluciones/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { sol: Solution } => {
     const sol = getSolution(params.slug);
     if (!sol) throw notFound();
     return { sol };
