@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ShoppingCart, Trash2, Plus, Minus, ExternalLink, CreditCard, ShieldCheck, Truck } from "lucide-react";
+import { ShoppingCart, ExternalLink, CreditCard, ShieldCheck, Truck, ArrowRight, Check } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { useCart } from "@/lib/cart";
@@ -41,8 +41,9 @@ const cats = ["Todos", ...Array.from(new Set(products.map((p) => p.category)))];
 
 function Tienda() {
   const [active, setActive] = useState("Todos");
-  const [cartOpen, setCartOpen] = useState(false);
   const visible = active === "Todos" ? products : products.filter((p) => p.category === active);
+  const { items, total } = useCart();
+  const count = items.reduce((n, i) => n + i.qty, 0);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -77,12 +78,12 @@ function Tienda() {
                 {c}
               </button>
             ))}
-            <button
-              onClick={() => setCartOpen(true)}
+            <Link
+              to="/checkout"
               className="ml-auto inline-flex items-center gap-2 px-4 py-2 rounded-md bg-secondary border border-border hover:border-primary transition text-sm font-medium"
             >
-              <ShoppingCart className="h-4 w-4" /> Ver carrito
-            </button>
+              <ShoppingCart className="h-4 w-4" /> Ir a pagar {count > 0 && <span className="bg-primary text-primary-foreground rounded-full px-2 text-xs">{count}</span>}
+            </Link>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -93,13 +94,24 @@ function Tienda() {
         <PaymentMethods />
       </main>
       <SiteFooter />
-      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+      {count > 0 && (
+        <Link
+          to="/checkout"
+          className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-3 px-6 py-4 rounded-full font-semibold text-primary-foreground shadow-2xl hover:opacity-90 transition"
+          style={{ background: "var(--gradient-accent)", boxShadow: "var(--shadow-glow)" }}
+        >
+          <ShoppingCart className="h-5 w-5" />
+          <span>Pagar ${total.toLocaleString("es-CO")}</span>
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      )}
     </div>
   );
 }
 
 function ProductCard({ p }: { p: Product }) {
-  const { add } = useCart();
+  const { add, items } = useCart();
+  const inCart = items.find((i) => i.id === p.id);
   return (
     <div className="group rounded-xl bg-card border border-border overflow-hidden hover:border-primary/50 transition-all hover:-translate-y-1" style={{ boxShadow: "var(--shadow-card)" }}>
       <div className="aspect-square bg-secondary overflow-hidden">
@@ -118,7 +130,7 @@ function ProductCard({ p }: { p: Product }) {
             className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-md font-semibold text-primary-foreground hover:opacity-90 transition text-sm"
             style={{ background: "var(--gradient-accent)" }}
           >
-            <ShoppingCart className="h-4 w-4" /> Agregar
+            {inCart ? <><Check className="h-4 w-4" /> En carrito ({inCart.qty})</> : <><ShoppingCart className="h-4 w-4" /> Agregar</>}
           </button>
           <a href={p.amazon} target="_blank" rel="noopener" className="inline-flex items-center justify-center h-10 w-10 rounded-md border border-border hover:border-primary hover:text-primary transition" title="Ver en Amazon">
             <ExternalLink className="h-4 w-4" />
