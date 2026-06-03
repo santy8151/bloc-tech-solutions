@@ -10,6 +10,7 @@ export type Solution = {
   features: string[];
   process: { step: string; desc: string }[];
   cta?: string;
+  plans?: { name: string; tagline?: string; monthly: number; annual: number; highlight?: boolean; perks: string[] }[];
 };
 
 export const solutions: Solution[] = [
@@ -159,6 +160,12 @@ export const solutions: Solution[] = [
       { step: "Monitoreo", desc: "Alertas y respuesta a incidentes." },
       { step: "Mejora", desc: "Reportes y endurecimiento continuo." },
     ],
+    plans: [
+      { name: "Starter", tagline: "Hasta 10 equipos", monthly: 19900, annual: 199000, perks: ["Antivirus EDR gestionado", "Backup 50 GB en la nube", "Soporte L1 horario laboral"] },
+      { name: "Business", tagline: "Hasta 50 equipos", monthly: 49900, annual: 499000, highlight: true, perks: ["EDR + firewall gestionado", "Backup 500 GB cloud", "Monitoreo 24/7 + SLA 4h"] },
+      { name: "Enterprise", tagline: "Hasta 200 equipos", monthly: 129900, annual: 1299000, perks: ["XDR + Zero Trust", "Backup 5 TB + DRP", "SOC dedicado + simulacros phishing"] },
+      { name: "Ultra", tagline: "Infraestructura crítica", monthly: 249900, annual: 2499000, perks: ["SOC 24/7 con respuesta", "Backup ilimitado geo-redundante", "Pentest semestral incluido"] },
+    ],
   },
   {
     slug: "software",
@@ -179,6 +186,12 @@ export const solutions: Solution[] = [
       { step: "Compra", desc: "Licenciamiento legal y facturación." },
       { step: "Despliegue", desc: "Instalación y migración de datos." },
       { step: "Soporte", desc: "Resolvemos cualquier incidencia." },
+    ],
+    plans: [
+      { name: "Microsoft 365 Business", tagline: "Por usuario / mes", monthly: 29900, annual: 299000, perks: ["Word, Excel, PowerPoint", "Teams + Outlook empresarial", "1 TB OneDrive por usuario"] },
+      { name: "Adobe Creative Cloud", tagline: "Por usuario / mes", monthly: 119900, annual: 1199000, highlight: true, perks: ["Photoshop, Illustrator, Premiere", "100 GB cloud + Adobe Fonts", "Soporte e instalación incluida"] },
+      { name: "AutoCAD LT", tagline: "Por usuario / mes", monthly: 89900, annual: 899000, perks: ["AutoCAD 2D + apps web/móvil", "25 GB de almacenamiento", "Soporte técnico premium"] },
+      { name: "Pack Productividad", tagline: "Office + Antivirus", monthly: 39900, annual: 399000, perks: ["Microsoft 365 incluido", "Antivirus + backup básico", "Mesa de ayuda dedicada"] },
     ],
   },
 ];
