@@ -129,16 +129,34 @@ function Subscriptions() {
       icon: Lock,
       title: "Ciberseguridad",
       desc: "Antivirus next-gen, EDR, firewall y backup en la nube con monitoreo 24/7.",
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80",
       bullets: ["Kaspersky · Bitdefender · ESET", "Firewall y SD-WAN seguro", "Backup cloud IDrive / Acronis"],
+      brands: [
+        { name: "Kaspersky", logo: "https://logo.clearbit.com/kaspersky.com" },
+        { name: "Bitdefender", logo: "https://logo.clearbit.com/bitdefender.com" },
+        { name: "ESET", logo: "https://logo.clearbit.com/eset.com" },
+        { name: "SentinelOne", logo: "https://logo.clearbit.com/sentinelone.com" },
+        { name: "Fortinet", logo: "https://logo.clearbit.com/fortinet.com" },
+        { name: "Acronis", logo: "https://logo.clearbit.com/acronis.com" },
+        { name: "IDrive", logo: "https://logo.clearbit.com/idrive.com" },
+        { name: "Cloudflare", logo: "https://logo.clearbit.com/cloudflare.com" },
+      ],
     },
     {
       slug: "software",
       icon: AppWindow,
       title: "Soporte a Herramientas",
       desc: "Office, Adobe, AutoCAD y antivirus con licencias gestionadas y soporte L1/L2.",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1600&q=80",
       bullets: ["Microsoft 365 Business", "Adobe Creative Cloud", "AutoCAD · SketchUp · Diseño"],
+      brands: [
+        { name: "Microsoft 365", logo: "https://logo.clearbit.com/microsoft.com" },
+        { name: "Adobe", logo: "https://logo.clearbit.com/adobe.com" },
+        { name: "AutoCAD", logo: "https://logo.clearbit.com/autodesk.com" },
+        { name: "SketchUp", logo: "https://logo.clearbit.com/sketchup.com" },
+        { name: "Google Workspace", logo: "https://logo.clearbit.com/workspace.google.com" },
+        { name: "Zoom", logo: "https://logo.clearbit.com/zoom.us" },
+        { name: "Slack", logo: "https://logo.clearbit.com/slack.com" },
+        { name: "Canva", logo: "https://logo.clearbit.com/canva.com" },
+      ],
     },
   ];
   return (
@@ -155,14 +173,21 @@ function Subscriptions() {
               key={s.slug}
               to="/soluciones/$slug"
               params={{ slug: s.slug }}
-              className="group relative rounded-2xl overflow-hidden border border-border hover:border-primary/60 transition-all hover:-translate-y-1 min-h-[340px] flex"
+              className="group relative rounded-2xl overflow-hidden border border-border hover:border-primary/60 transition-all hover:-translate-y-1 bg-card flex flex-col"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
-              <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{ backgroundImage: `url(${s.image})` }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, oklch(0.16 0.03 200 / 0.55) 0%, oklch(0.16 0.03 200 / 0.95) 100%)" }} />
-              <div className="relative p-8 flex flex-col justify-end w-full">
-                <div className="inline-flex items-center justify-center h-14 w-14 rounded-xl bg-primary/15 text-primary mb-5 backdrop-blur">
-                  <s.icon className="h-7 w-7" />
+              <div className="relative p-6 border-b border-border" style={{ background: "var(--gradient-hero)" }}>
+                <div className="grid grid-cols-4 gap-3">
+                  {s.brands.map((b) => (
+                    <div key={b.name} className="aspect-square rounded-lg bg-white flex items-center justify-center p-2 shadow-sm" title={b.name}>
+                      <img src={b.logo} alt={b.name} className="max-h-full max-w-full object-contain" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="p-7 flex flex-col flex-1">
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-primary/15 text-primary mb-4">
+                  <s.icon className="h-6 w-6" />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{s.title}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{s.desc}</p>
@@ -171,7 +196,7 @@ function Subscriptions() {
                     <li key={b} className="flex items-start gap-2 text-sm"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" /> {b}</li>
                   ))}
                 </ul>
-                <span className="inline-flex items-center gap-1 text-primary text-sm font-semibold group-hover:gap-2 transition-all">
+                <span className="inline-flex items-center gap-1 text-primary text-sm font-semibold group-hover:gap-2 transition-all mt-auto">
                   Ver planes y precios <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
