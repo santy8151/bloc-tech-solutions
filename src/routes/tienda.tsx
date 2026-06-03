@@ -37,6 +37,25 @@ const products: Product[] = [
   { id: "8", name: "UPS 1500VA regulador para servidores", category: "Energía", price: 729000, image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80", amazon: "https://amazon.com" },
 ];
 
+products.push(
+  { id: "9", name: "Router Mesh WiFi 6 Tri-Band 3-pack", category: "Conectividad", price: 1199000, image: "https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "10", name: "Cámara PTZ exterior 4K zoom 30x", category: "Seguridad", price: 2490000, image: "https://images.unsplash.com/photo-1564594985645-4427056e22e2?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "11", name: "Switch PoE+ 48 puertos Gigabit", category: "Redes", price: 3290000, image: "https://images.unsplash.com/photo-1551703599-6b3e8379aa8d?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "12", name: "Diadema inalámbrica Bluetooth con micrófono", category: "Telefonía IP", price: 459000, image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "13", name: "Impresora térmica de etiquetas y código QR", category: "Periféricos", price: 689000, image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "14", name: "Scanner documental dúplex 60ppm", category: "Periféricos", price: 1390000, image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "15", name: "Disco duro NAS 8TB Enterprise", category: "Almacenamiento", price: 1090000, image: "https://images.unsplash.com/photo-1597338820137-7d6c61bd84c0?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "16", name: "NAS 2 bahías para respaldo empresarial", category: "Almacenamiento", price: 1790000, image: "https://images.unsplash.com/photo-1601737487795-dab272f52420?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "17", name: "Firewall UTM SMB con licencia 1 año", category: "Seguridad", price: 2890000, image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "18", name: "Patch panel Cat6A 24 puertos blindado", category: "Redes", price: 549000, image: "https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "19", name: "Lector biométrico de huella y RFID", category: "Seguridad", price: 459000, image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "20", name: "Proyector láser 4K para sala de juntas", category: "Periféricos", price: 4290000, image: "https://images.unsplash.com/photo-1626379953822-baec19c3accd?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "21", name: "Pantalla interactiva 65\" para reuniones", category: "Periféricos", price: 7890000, image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "22", name: "Regleta inteligente WiFi con monitoreo", category: "Energía", price: 219000, image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "23", name: "UPS online 3KVA doble conversión", category: "Energía", price: 3590000, image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80", amazon: "https://amazon.com" },
+  { id: "24", name: "Kit videoconferencia 4K USB plug & play", category: "Telefonía IP", price: 2190000, image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&q=80", amazon: "https://amazon.com" },
+);
+
 const cats = ["Todos", ...Array.from(new Set(products.map((p) => p.category)))];
 
 function Tienda() {
