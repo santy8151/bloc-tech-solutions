@@ -125,3 +125,92 @@ function SolucionDetail() {
     </div>
   );
 }
+
+type Plan = NonNullable<Solution["plans"]>[number];
+
+function PlansSection({ plans }: { plans: Plan[] }) {
+  const [annual, setAnnual] = useState(false);
+  return (
+    <section className="border-t border-border py-20" style={{ background: "var(--gradient-hero)" }}>
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <p className="text-primary text-sm font-semibold uppercase tracking-widest mb-3">Planes y precios</p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Elige tu plan de suscripción</h2>
+          <p className="mt-3 text-muted-foreground">Sin permanencia. Cambia o cancela cuando quieras.</p>
+        </div>
+
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex p-1 rounded-full bg-card border border-border">
+            <button
+              onClick={() => setAnnual(false)}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition ${!annual ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              Mensual
+            </button>
+            <button
+              onClick={() => setAnnual(true)}
+              className={`px-6 py-2 rounded-full text-sm font-semibold transition flex flex-col leading-tight items-center ${annual ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              <span>Anual</span>
+              <span className={`text-[10px] ${annual ? "text-primary-foreground/80" : "text-primary"}`}>Ahorra 16%</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {plans.map((p) => {
+            const price = annual ? Math.round(p.annual / 12) : p.monthly;
+            return (
+              <button
+                key={p.name}
+                type="button"
+                onClick={() => { window.location.href = "/#contacto"; }}
+                className={`group text-left rounded-2xl p-6 border transition-all hover:-translate-y-1 flex flex-col ${
+                  p.highlight
+                    ? "border-primary bg-card ring-2 ring-primary/40"
+                    : "border-border bg-card hover:border-primary/60"
+                }`}
+                style={p.highlight ? { boxShadow: "var(--shadow-glow)" } : { boxShadow: "var(--shadow-card)" }}
+              >
+                {p.highlight && (
+                  <span className="inline-flex items-center gap-1 self-start mb-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-primary-foreground" style={{ background: "var(--gradient-accent)" }}>
+                    <Sparkles className="h-3 w-3" /> Más elegido
+                  </span>
+                )}
+                <h3 className="text-xl font-bold">{p.name}</h3>
+                {p.tagline && <p className="text-xs text-muted-foreground uppercase tracking-wider mt-1">{p.tagline}</p>}
+                <div className="my-5">
+                  <div className="text-3xl font-extrabold tracking-tight">
+                    COP ${price.toLocaleString("es-CO")}
+                    <span className="text-sm font-normal text-muted-foreground">/mes</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {annual ? `Facturado anual: $${p.annual.toLocaleString("es-CO")}` : "Facturación mensual"}
+                  </p>
+                </div>
+                <ul className="space-y-2 text-sm mb-6 flex-1">
+                  {p.perks.map((perk) => (
+                    <li key={perk} className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{perk}</span>
+                    </li>
+                  ))}
+                </ul>
+                <span
+                  className={`inline-flex items-center justify-center gap-2 w-full h-11 rounded-md font-semibold text-sm transition ${
+                    p.highlight
+                      ? "text-primary-foreground"
+                      : "border border-border group-hover:border-primary group-hover:text-primary"
+                  }`}
+                  style={p.highlight ? { background: "var(--gradient-accent)" } : undefined}
+                >
+                  Contratar plan <ArrowRight className="h-4 w-4" />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
