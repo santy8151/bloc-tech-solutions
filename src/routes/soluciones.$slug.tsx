@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, CheckCircle2, ArrowLeft, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getSolution, solutions, type Solution } from "@/lib/solutions";
@@ -99,6 +100,8 @@ function SolucionDetail() {
             </div>
           </div>
         </section>
+
+        {sol.plans && <PlansSection plans={sol.plans} />}
 
         <section className="bg-card/30 border-t border-border py-20">
           <div className="container mx-auto px-6 max-w-6xl">
