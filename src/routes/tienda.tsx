@@ -136,10 +136,13 @@ function Tienda() {
 function ProductCard({ p }: { p: Product }) {
   const { add, items } = useCart();
   const inCart = items.find((i) => i.id === p.id);
+  const Icon = categoryIcons[p.category] ?? Shield;
   return (
     <div className="group rounded-xl bg-card border border-border overflow-hidden hover:border-primary/50 transition-all hover:-translate-y-1" style={{ boxShadow: "var(--shadow-card)" }}>
-      <div className="aspect-square bg-secondary overflow-hidden">
-        <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+      <div className="aspect-square relative overflow-hidden flex items-center justify-center" style={{ background: "var(--gradient-hero)" }}>
+        <div className="absolute inset-0 opacity-30" style={{ background: "radial-gradient(circle at 30% 20%, oklch(0.65 0.18 200 / 0.4), transparent 60%)" }} />
+        <Icon className="relative h-24 w-24 text-primary group-hover:scale-110 transition-transform duration-500" strokeWidth={1.25} />
+        <span className="absolute top-3 left-3 text-[10px] uppercase tracking-widest font-bold text-muted-foreground bg-background/60 backdrop-blur px-2 py-1 rounded">{p.category}</span>
       </div>
       <div className="p-5">
         <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">{p.category}</p>
@@ -148,18 +151,13 @@ function ProductCard({ p }: { p: Product }) {
           ${p.price.toLocaleString("es-CO")}
           <span className="text-xs text-muted-foreground font-normal ml-1">COP</span>
         </p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => add({ id: p.id, name: p.name, price: p.price, image: p.image })}
-            className="flex-1 inline-flex items-center justify-center gap-2 h-10 rounded-md font-semibold text-primary-foreground hover:opacity-90 transition text-sm"
-            style={{ background: "var(--gradient-accent)" }}
-          >
-            {inCart ? <><Check className="h-4 w-4" /> En carrito ({inCart.qty})</> : <><ShoppingCart className="h-4 w-4" /> Agregar</>}
-          </button>
-          <a href={p.amazon} target="_blank" rel="noopener" className="inline-flex items-center justify-center h-10 w-10 rounded-md border border-border hover:border-primary hover:text-primary transition" title="Ver en Amazon">
-            <ExternalLink className="h-4 w-4" />
-          </a>
-        </div>
+        <button
+          onClick={() => add({ id: p.id, name: p.name, price: p.price, image: "" })}
+          className="w-full inline-flex items-center justify-center gap-2 h-10 rounded-md font-semibold text-primary-foreground hover:opacity-90 transition text-sm"
+          style={{ background: "var(--gradient-accent)" }}
+        >
+          {inCart ? <><Check className="h-4 w-4" /> En carrito ({inCart.qty})</> : <><ShoppingCart className="h-4 w-4" /> Agregar al carrito</>}
+        </button>
       </div>
     </div>
   );
