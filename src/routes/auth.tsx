@@ -24,7 +24,7 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/portal" });
+      if (data.session) navigate({ to: "/portal" as never });
     });
   }, [navigate]);
 
@@ -39,11 +39,11 @@ function AuthPage() {
           options: { emailRedirectTo: window.location.origin + "/portal" },
         });
         if (error) throw error;
-        navigate({ to: "/portal" });
+        navigate({ to: "/portal" as never });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate({ to: "/portal" });
+        navigate({ to: "/portal" as never });
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Error de autenticación";

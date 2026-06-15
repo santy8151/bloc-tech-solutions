@@ -5,7 +5,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import logo from "@/assets/logo.png";
 import type { ReactNode } from "react";
 
-const nav = [
+type NavItem = { to: string; label: string; icon: typeof Users; exact?: boolean };
+const nav: NavItem[] = [
   { to: "/portal", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/portal/clientes", label: "Clientes", icon: Users },
   { to: "/portal/proveedores", label: "Proveedores", icon: Building },
@@ -14,7 +15,7 @@ const nav = [
   { to: "/portal/contratos", label: "Contratos", icon: FileSignature },
   { to: "/portal/chat-ia", label: "Chat IA", icon: MessageSquare },
   { to: "/portal/diagramas", label: "Diagramas IA", icon: Network },
-] as const;
+];
 
 export function PortalShell({ children, title }: { children: ReactNode; title: string }) {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export function PortalShell({ children, title }: { children: ReactNode; title: s
           {nav.map((n) => {
             const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
             return (
-              <Link key={n.to} to={n.to}
+              <Link key={n.to} to={n.to as never}
                 className={`flex items-center gap-3 px-3 h-10 rounded-md text-sm font-medium transition ${active ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-secondary hover:text-foreground"}`}>
                 <n.icon className="h-4 w-4" /> {n.label}
               </Link>
@@ -69,7 +70,7 @@ export function PortalShell({ children, title }: { children: ReactNode; title: s
           {nav.map((n) => {
             const active = n.exact ? pathname === n.to : pathname.startsWith(n.to);
             return (
-              <Link key={n.to} to={n.to} className={`shrink-0 inline-flex items-center gap-1.5 px-3 h-9 rounded-md text-xs font-semibold transition ${active ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>
+              <Link key={n.to} to={n.to as never} className={`shrink-0 inline-flex items-center gap-1.5 px-3 h-9 rounded-md text-xs font-semibold transition ${active ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>
                 <n.icon className="h-3.5 w-3.5" /> {n.label}
               </Link>
             );
