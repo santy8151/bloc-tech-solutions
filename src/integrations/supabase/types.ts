@@ -14,16 +14,312 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      chat_mensajes: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      clientes: {
+        Row: {
+          ciudad: string | null
+          created_at: string
+          created_by: string | null
+          direccion: string | null
+          email: string | null
+          id: string
+          nit: string | null
+          nombre: string
+          notas: string | null
+          telefono: string | null
+          updated_at: string
+        }
+        Insert: {
+          ciudad?: string | null
+          created_at?: string
+          created_by?: string | null
+          direccion?: string | null
+          email?: string | null
+          id?: string
+          nit?: string | null
+          nombre: string
+          notas?: string | null
+          telefono?: string | null
+          updated_at?: string
+        }
+        Update: {
+          ciudad?: string | null
+          created_at?: string
+          created_by?: string | null
+          direccion?: string | null
+          email?: string | null
+          id?: string
+          nit?: string | null
+          nombre?: string
+          notas?: string | null
+          telefono?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      compras: {
+        Row: {
+          created_at: string
+          descripcion: string
+          estado: string
+          factura_url: string | null
+          fecha: string
+          id: string
+          monto: number
+          proveedor_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          descripcion: string
+          estado?: string
+          factura_url?: string | null
+          fecha?: string
+          id?: string
+          monto?: number
+          proveedor_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          descripcion?: string
+          estado?: string
+          factura_url?: string | null
+          fecha?: string
+          id?: string
+          monto?: number
+          proveedor_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "compras_proveedor_id_fkey"
+            columns: ["proveedor_id"]
+            isOneToOne: false
+            referencedRelation: "proveedores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contratos: {
+        Row: {
+          cliente_id: string | null
+          created_at: string
+          estado: string
+          fecha_inicio: string | null
+          fecha_vencimiento: string | null
+          id: string
+          monto_mensual: number | null
+          notas: string | null
+          operador: string
+          plan: string | null
+          updated_at: string
+          url_portal: string | null
+        }
+        Insert: {
+          cliente_id?: string | null
+          created_at?: string
+          estado?: string
+          fecha_inicio?: string | null
+          fecha_vencimiento?: string | null
+          id?: string
+          monto_mensual?: number | null
+          notas?: string | null
+          operador: string
+          plan?: string | null
+          updated_at?: string
+          url_portal?: string | null
+        }
+        Update: {
+          cliente_id?: string | null
+          created_at?: string
+          estado?: string
+          fecha_inicio?: string | null
+          fecha_vencimiento?: string | null
+          id?: string
+          monto_mensual?: number | null
+          notas?: string | null
+          operador?: string
+          plan?: string | null
+          updated_at?: string
+          url_portal?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contratos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      diagramas: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          prompt: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          prompt: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          prompt?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      entregas: {
+        Row: {
+          cliente_id: string | null
+          created_at: string
+          descripcion: string
+          direccion: string | null
+          estado: string
+          fecha_programada: string | null
+          id: string
+          notas: string | null
+          tecnico: string | null
+          updated_at: string
+        }
+        Insert: {
+          cliente_id?: string | null
+          created_at?: string
+          descripcion: string
+          direccion?: string | null
+          estado?: string
+          fecha_programada?: string | null
+          id?: string
+          notas?: string | null
+          tecnico?: string | null
+          updated_at?: string
+        }
+        Update: {
+          cliente_id?: string | null
+          created_at?: string
+          descripcion?: string
+          direccion?: string | null
+          estado?: string
+          fecha_programada?: string | null
+          id?: string
+          notas?: string | null
+          tecnico?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entregas_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      proveedores: {
+        Row: {
+          contacto_email: string | null
+          contacto_nombre: string | null
+          contacto_telefono: string | null
+          created_at: string
+          id: string
+          nombre: string
+          notas: string | null
+          tipo: string | null
+          updated_at: string
+        }
+        Insert: {
+          contacto_email?: string | null
+          contacto_nombre?: string | null
+          contacto_telefono?: string | null
+          created_at?: string
+          id?: string
+          nombre: string
+          notas?: string | null
+          tipo?: string | null
+          updated_at?: string
+        }
+        Update: {
+          contacto_email?: string | null
+          contacto_nombre?: string | null
+          contacto_telefono?: string | null
+          created_at?: string
+          id?: string
+          nombre?: string
+          notas?: string | null
+          tipo?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "empleado" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +446,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["empleado", "admin"],
+    },
   },
 } as const
