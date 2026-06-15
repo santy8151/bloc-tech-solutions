@@ -36,7 +36,7 @@ export const saveCliente = createServerFn({ method: "POST" })
     if (data.id) {
       const { id, ...rest } = payload;
       const { data: row, error } = await context.supabase
-        .from("clientes").update(rest).eq("id", id).select().single();
+        .from("clientes").update(rest).eq("id", id as string).select().single();
       if (error) throw new Error(error.message);
       return row;
     }
