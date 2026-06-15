@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TiendaRouteImport } from './routes/tienda'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SolucionesIndexRouteImport } from './routes/soluciones.index'
 import { Route as SolucionesSlugRouteImport } from './routes/soluciones.$slug'
@@ -23,6 +24,11 @@ const TiendaRoute = TiendaRouteImport.update({
 const CheckoutRoute = CheckoutRouteImport.update({
   id: '/checkout',
   path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,6 +49,7 @@ const SolucionesSlugRoute = SolucionesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRoute
   '/tienda': typeof TiendaRoute
   '/soluciones/$slug': typeof SolucionesSlugRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRoute
   '/tienda': typeof TiendaRoute
   '/soluciones/$slug': typeof SolucionesSlugRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/checkout': typeof CheckoutRoute
   '/tienda': typeof TiendaRoute
   '/soluciones/$slug': typeof SolucionesSlugRoute
@@ -67,15 +76,23 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/checkout'
     | '/tienda'
     | '/soluciones/$slug'
     | '/soluciones/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/checkout' | '/tienda' | '/soluciones/$slug' | '/soluciones'
+  to:
+    | '/'
+    | '/auth'
+    | '/checkout'
+    | '/tienda'
+    | '/soluciones/$slug'
+    | '/soluciones'
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/checkout'
     | '/tienda'
     | '/soluciones/$slug'
@@ -84,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   CheckoutRoute: typeof CheckoutRoute
   TiendaRoute: typeof TiendaRoute
   SolucionesSlugRoute: typeof SolucionesSlugRoute
@@ -104,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/checkout'
       fullPath: '/checkout'
       preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -132,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   CheckoutRoute: CheckoutRoute,
   TiendaRoute: TiendaRoute,
   SolucionesSlugRoute: SolucionesSlugRoute,

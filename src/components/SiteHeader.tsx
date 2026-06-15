@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ShoppingCart, Menu, ChevronDown } from "lucide-react";
+import { ShoppingCart, Menu, ChevronDown, Lock } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useCart } from "@/lib/cart";
 import { useState } from "react";
@@ -58,6 +58,13 @@ export function SiteHeader() {
           <a href="/#contacto" className="hover:text-primary transition-colors">Contacto</a>
         </nav>
         <div className="flex items-center gap-3">
+          <Link
+            to="/auth"
+            className="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-md text-xs font-bold uppercase tracking-wider border border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground transition"
+            title="Portal interno"
+          >
+            <Lock className="h-3.5 w-3.5" /> Acceso empleados
+          </Link>
           <Link to="/checkout" className="relative inline-flex items-center justify-center h-9 w-9 rounded-md hover:bg-secondary transition-colors" title="Ir a pagar">
             <ShoppingCart className="h-5 w-5" />
             {count > 0 && (
